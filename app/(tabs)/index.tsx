@@ -2,7 +2,13 @@ import { ThemedText } from "@/components/ThemedText";
 import { generateRandomRgbColor } from "@/utils/generateRandomRgbColor";
 import { MotiView } from "moti";
 import { useState } from "react";
-import { Button, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+  View,
+} from "react-native";
 
 export default function HomeScreen() {
   const [bgColor, setBgColor] = useState(generateRandomRgbColor());
@@ -12,24 +18,28 @@ export default function HomeScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.mainContainer}>
-      <MotiView
-        style={styles.colorContainer}
-        animate={{ backgroundColor: bgColor }}
-      >
-        <View style={styles.button}>
-          <Button onPress={handleClick} title="Generate color" />
-        </View>
+    <SafeAreaView style={styles.flex}>
+      <TouchableWithoutFeedback onPress={handleClick} style={styles.flex}>
+        <View style={styles.flex}>
+          <MotiView
+            style={styles.colorContainer}
+            animate={{ backgroundColor: bgColor }}
+          >
+            <View style={styles.mainText}>
+              <Text>Hello there</Text>
+            </View>
 
-        <Text style={styles.text}>Current RGB color: {bgColor}</Text>
-      </MotiView>
-      <ThemedText>Mateusz Roth - mateusz.roth@gmail.com</ThemedText>
+            <Text style={styles.text}>Current RGB color: {bgColor}</Text>
+          </MotiView>
+          <ThemedText>Mateusz Roth - mateusz.roth@gmail.com</ThemedText>
+        </View>
+      </TouchableWithoutFeedback>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  flex: {
     flex: 1,
   },
   colorContainer: {
@@ -39,9 +49,10 @@ const styles = StyleSheet.create({
     gap: 10,
     backgroundColor: "black",
   },
-  button: {
+  mainText: {
     backgroundColor: "white",
     borderRadius: 6,
+    padding: 20,
   },
   text: {
     color: "black",
